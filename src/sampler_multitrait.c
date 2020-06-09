@@ -216,7 +216,7 @@ SEXP sampler_BRR_mt(SEXP trait,
                  SEXP rOmegainv,
                  SEXP Oikk)
 {
-	double s1, s3, s4, betaOld, shift, sigma2;
+	double s1, s3, s4, betaOld, shift;
     double *pRinv;          //Pointer to Rinv
     double *cRinv;          //Pointer to a column of Rinv
     double *pX;             //Pointer to X
@@ -226,7 +226,6 @@ SEXP sampler_BRR_mt(SEXP trait,
     double *pbeta;          //Pointer to beta matrix
     double *cbeta;          //Pointer to a column of beta
     double *px2;            //Pointer to x2
-    double *ptmp12;         //Pointer to tmp12
     double *prOmegainv;     //Pointer to row of Omegainv
     double mu;
     double v;
@@ -240,7 +239,6 @@ SEXP sampler_BRR_mt(SEXP trait,
     traits=INTEGER_VALUE(nTraits);
     k=INTEGER_VALUE(trait)-1;       //In C we begin to count in 0
     rows=INTEGER_VALUE(n);
-    sigma2=NUMERIC_VALUE(Sigma2);
     Omegainversekk=NUMERIC_VALUE(Oikk);
     
     PROTECT(Rinv=AS_NUMERIC(Rinv));
@@ -257,9 +255,6 @@ SEXP sampler_BRR_mt(SEXP trait,
         
     PROTECT(x2=AS_NUMERIC(x2));
     px2=NUMERIC_POINTER(x2);
-    
-    PROTECT(tmp12=AS_NUMERIC(tmp12));
-    ptmp12=NUMERIC_POINTER(tmp12);
     
     PROTECT(rOmegainv=AS_NUMERIC(rOmegainv));
     prOmegainv=NUMERIC_POINTER(rOmegainv);
